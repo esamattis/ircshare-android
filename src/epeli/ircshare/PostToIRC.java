@@ -78,6 +78,7 @@ public class PostToIRC extends Activity {
 		
 		channel.setText(settings.getString("channel", "#"));
 		nick.setText(settings.getString("nick", ""));
+		network.setSelection(settings.getInt("network", 0));
 		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 		            this, R.array.networks, android.R.layout.simple_spinner_item);
@@ -88,6 +89,7 @@ public class PostToIRC extends Activity {
 		intent = getIntent();
 		extras = intent.getExtras();
 		action = intent.getAction();
+
 		
 		if (isCalledByGallery()){
 			setupSmallImg(image);
@@ -131,8 +133,8 @@ public class PostToIRC extends Activity {
 		Editor editor = settings.edit();
 		editor.putString("channel", channel.getText().toString());
 		editor.putString("nick", nick.getText().toString());
+		editor.putInt("network", network.getSelectedItemPosition());
 		editor.commit();
-		notify("saved");
 	}
 	
 	private boolean isCalledByGallery(){
@@ -176,8 +178,8 @@ public class PostToIRC extends Activity {
 		Bitmap bitmap;
 		try {
 			bitmap = BitmapFactory.decodeStream(getImgInputStream());
-			int scale = bitmap.getHeight() / bitmap.getWidth();
-			img.setImageBitmap( Bitmap.createScaledBitmap(bitmap, 400, 400 / scale, true) );
+			double scale = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+			img.setImageBitmap( Bitmap.createScaledBitmap(bitmap, 400, (int) (400.0 * scale ), true) );
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,6 +191,7 @@ public class PostToIRC extends Activity {
 	private class UploadImageTask extends AsyncTask<Void, Void, Void> {
 		
 		String res;
+		String err;
 		
 		private void postNew(){
 			
@@ -210,7 +213,9 @@ public class PostToIRC extends Activity {
 			  res = httpclient.execute(httppost, responseHandler);
 			  
 			} catch (ClientProtocolException e) {
+				err = e.toString();
 			} catch (IOException e) {
+				err = e.toString();
 			}
 			     
 			
@@ -229,10 +234,14 @@ public class PostToIRC extends Activity {
 		}
 		
 		public void onPostExecute(Void n) {
-			ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
-
-			clipboard.setText(res);
-			PostToIRC.this.notify("Image sent! Copied url to clipboard: " + res);
+			if (err == null) {
+				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
+				clipboard.setText(res);
+				PostToIRC.this.notify("Image sent! Copied url to clipboard: " + res);
+			}
+			else {
+				PostToIRC.this.notify("Error sending picture: " + err);
+			}
 		}
 	
 
