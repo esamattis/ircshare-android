@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<string-array name="networks">
+        <item>IRCnet</item>
+        <item>Freenode</item>
+    </string-array>
+    
+</resources>
