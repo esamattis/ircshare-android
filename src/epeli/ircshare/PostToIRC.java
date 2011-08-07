@@ -3,6 +3,8 @@ package epeli.ircshare;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -10,6 +12,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -193,16 +196,19 @@ public class PostToIRC extends Activity {
 		String res;
 		String err;
 		
-		private void postNew(){
+		private void uploadImage(){
 			
 			HttpClient httpclient = new DefaultHttpClient();
 			httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 			HttpPost httppost = new HttpPost("http://kamino.kortex.jyu.fi:1337/upload");
 			try {
-			  MultipartEntity entity = new MultipartEntity();
+				
+				
+			  MultipartEntity entity = new MultipartEntity(HttpMultipartMode.STRICT, null, Charset.forName("UTF-8") );
+			  
 			  entity.addPart("nick", new StringBody(nick.getText().toString()));
 			  entity.addPart("channel", new StringBody(channel.getText().toString()));
-			  entity.addPart("caption", new StringBody(caption.getText().toString()));
+			  entity.addPart("caption", new StringBody(URLEncoder.encode(caption.getText().toString())));
 			  entity.addPart("network", new StringBody(network.getSelectedItem().toString()));
 			  
 			  
@@ -224,7 +230,7 @@ public class PostToIRC extends Activity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			postNew();
+			uploadImage();
 			return null;
 		}
 		
