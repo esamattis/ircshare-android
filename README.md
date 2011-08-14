@@ -3,7 +3,17 @@
 Like there is an option to share images on Facebook and Twitter on Android,
 this adds similar option for IRC.
 
+## IRC share is coming to Android Market near you soon!
 
-Server and irc bot: https://github.com/epeli/androidircshare-server
+Mean while you can use this:
+
+https://github.com/downloads/epeli/androidircshare/IRCShare.apk
+
+
+
+
+
+
+Server and irc bot: https://github.com/epeli/ircshare
 
 
