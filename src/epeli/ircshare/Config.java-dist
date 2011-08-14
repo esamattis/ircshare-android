@@ -1,0 +1,6 @@
+package epeli.ircshare;
+
+public class Config {
+	public static String uploadpath = "upload";
+
+}

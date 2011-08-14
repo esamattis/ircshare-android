@@ -210,7 +210,7 @@ public class PostToIRC extends Activity {
 			httpclient.getParams().setParameter(
 					CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 			HttpPost httppost = new HttpPost(
-					"http://kamino.kortex.jyu.fi:1337/upload");
+					Config.postURL);
 			try {
 
 				MultipartEntity entity = new MultipartEntity(
