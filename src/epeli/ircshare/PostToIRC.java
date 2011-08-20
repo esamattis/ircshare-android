@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.UUID;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -32,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 import android.view.View;
@@ -228,7 +230,12 @@ public class PostToIRC extends Activity {
 
 				entity.addPart("network", escapeToStringBody(network
 						.getSelectedItem().toString()));
-
+				
+				UUID uuid = new DeviceUuidFactory(getApplicationContext()).getDeviceUuid();
+				entity.addPart("deviceid", escapeToStringBody(uuid.toString()));
+				
+				entity.addPart("devicename", escapeToStringBody(Build.MODEL));
+				
 				entity.addPart("picdata", new InputStreamBody(
 						getImgInputStream(), getImgMimeType(), "pic.jpg"));
 
