@@ -234,7 +234,6 @@ public class PostToIRC extends Activity {
 				versionCode = -1;				
 			}
 			
-			
 			try {
 
 				MultipartEntity entity = new MultipartEntity(
