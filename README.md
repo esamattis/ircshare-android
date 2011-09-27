@@ -9,11 +9,11 @@ Mean while you can use this:
 
 https://github.com/downloads/epeli/androidircshare/IRCShare.apk
 
-
-
-
-
-
 Server and irc bot: https://github.com/epeli/ircshare
 
+
+# License
+
+This software is licensed under the GNU Affero General Public License.  For
+more information see agpl.txt.
 
