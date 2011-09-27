@@ -86,6 +86,7 @@ public class PostToIRC extends Activity {
 		channel.setText(settings.getString("channel", "#"));
 		nick.setText(settings.getString("nick", ""));
 		network.setSelection(settings.getInt("network", 0));
+		
 
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				this, R.array.networks, android.R.layout.simple_spinner_item);
@@ -307,7 +308,7 @@ public class PostToIRC extends Activity {
 				try {
 					url = json.getString("url");
 				} catch (JSONException e) {
-					url = "no url";
+					url = "server did not give a url";
 				}
 				
 				

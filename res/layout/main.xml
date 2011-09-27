@@ -6,7 +6,7 @@
         android:isScrollContainer="true" 
         android:scrollbarAlwaysDrawVerticalTrack="true" 
         android:scrollbarStyle="outsideInset" 
-        android:background="#fff"
+        android:background="#000"
         android:scrollbars="vertical">
 
 
@@ -16,27 +16,27 @@
     android:layout_height="fill_parent"
     android:weightSum="1">
     
-	<TextView android:textColor="#000" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1" android:text="@string/share_title" android:textSize="20dp"></TextView>
-    <ImageView android:src="@drawable/icon" android:background="#000" android:id="@+id/imageview" android:layout_width="fill_parent" android:layout_height="200dp" android:layout_weight="0.02" android:padding="10px"></ImageView>
+	<TextView android:textColor="#fff" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1" android:text="@string/share_title" android:textSize="20dp"></TextView>
+    <ImageView android:src="@drawable/icon" android:background="#000" android:id="@+id/imageview" android:layout_width="fill_parent" android:layout_height="200dp" android:layout_weight="0.02" android:padding="20px"></ImageView>
     
-    <TextView android:textColor="#000" android:layout_height="wrap_content" android:text="@string/caption" android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
+    <TextView android:textColor="#fff" android:layout_height="wrap_content" android:text="@string/caption" android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
 	<EditText android:textColor="#000" android:layout_width="fill_parent" android:inputType="textMultiLine" android:id="@+id/caption" android:gravity="top" android:layout_weight="2.37" android:layout_height="80dp"><requestFocus></requestFocus></EditText>
     
-    <TextView android:textColor="#000" android:layout_height="wrap_content" android:text="@string/network" android:layout_width="wrap_content" android:id="@+id/textView4"></TextView>
+    <TextView android:textColor="#fff" android:layout_height="wrap_content" android:text="@string/network" android:layout_width="wrap_content" android:id="@+id/textView4"></TextView>
     <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/network"></Spinner>
     
     
-<TextView android:textColor="#000" android:layout_height="wrap_content" android:text="@string/channel" android:layout_width="wrap_content" android:id="@+id/textView1"></TextView>
+<TextView android:textColor="#fff" android:layout_height="wrap_content" android:text="@string/channel" android:layout_width="wrap_content" android:id="@+id/textView1"></TextView>
 <EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/channel"></EditText>
 
 
-<TextView android:textColor="#000" android:layout_height="wrap_content" android:text="@string/nickname" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
+<TextView android:textColor="#fff" android:layout_height="wrap_content" android:text="@string/nickname" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
 <EditText android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/nick"></EditText>
 
 
 
 <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="@string/send" android:id="@+id/send"></Button>
-<TextView  android:textColor="#000"
+<TextView  android:textColor="#fff"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:id="@+id/status" android:text="@string/status"/>

@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
-# Configuration
-# -------------
-# The Manifest path is relative to THIS script.
-# If you copy-and-paste this into your pre-commit hook
-# and your AndroidManifest.xml is in the root of your repo
-# then the path would be:
-# MANIFEST="../../AndroidManifest.xml"
 
-# If this is in the same directory then it's just:
 MANIFEST="AndroidManifest.xml"
-
-
-
 
 if [ -f $MANIFEST ]
 then
@@ -23,5 +12,5 @@ then
     sed "s/android:versionCode=\"[0-9]*\"/android:versionCode=\"${INCREMENTED}\"/" $MANIFEST > $MANIFEST.tmp && mv $MANIFEST.tmp $MANIFEST
     git add $MANIFEST
     echo "Updated android:versionCode to ${INCREMENTED} in ${MANIFEST}";
-fi;
+fi
 
