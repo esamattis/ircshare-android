@@ -15,5 +15,5 @@ Server and irc bot: https://github.com/epeli/ircshare
 # License
 
 This software is licensed under the GNU General Public License.  For more
-information see agpl.txt.
+information see gpl.txt.
 
