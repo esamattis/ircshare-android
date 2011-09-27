@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello 2!</string>
-    <string name="app_name">Share in IRC</string>
+    <string name="app_name">Share on IRC</string>
     <string name="channel">Target IRC-channel or nick</string>
     <string name="nickname">Your IRC nick</string>
     <string name="caption">Image caption</string>

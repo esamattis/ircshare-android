@@ -21,6 +21,8 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -28,6 +30,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -213,6 +218,23 @@ public class PostToIRC extends Activity {
 					CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 			HttpPost httppost = new HttpPost(
 					Config.postURL);
+			
+			PackageManager pm = getPackageManager();
+			PackageInfo info;
+			
+			int versionCode;
+			String versionName;
+			
+			try {
+				info = pm.getPackageInfo("epeli.ircshare", 0);
+				versionName = info.versionName;
+				versionCode = info.versionCode;
+			} catch (NameNotFoundException e1) {
+				versionName = "Unknown version";
+				versionCode = -1;				
+			}
+			
+			
 			try {
 
 				MultipartEntity entity = new MultipartEntity(
@@ -235,6 +257,9 @@ public class PostToIRC extends Activity {
 				entity.addPart("deviceid", escapeToStringBody(uuid.toString()));
 				
 				entity.addPart("devicename", escapeToStringBody(Build.MODEL));
+				
+				entity.addPart("versionname", escapeToStringBody( versionName ));
+				entity.addPart("versioncode", escapeToStringBody( "" + versionCode ));
 				
 				entity.addPart("picdata", new InputStreamBody(
 						getImgInputStream(), getImgMimeType(), "pic.jpg"));
@@ -262,11 +287,36 @@ public class PostToIRC extends Activity {
 		}
 
 		public void onPostExecute(Void n) {
+			JSONObject json = null;
+			try {
+				json = new JSONObject(res);
+				
+				if (json.has("error") ) {
+					err = json.getString("message");
+				}
+				
+			} catch (JSONException e) {
+				err = "Got mallformed json response from the server";
+			}
+			
+			
+			
 			if (err == null) {
 				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-				clipboard.setText(res);
+				String url;
+				
+				try {
+					url = json.getString("url");
+				} catch (JSONException e) {
+					url = "no url";
+				}
+				
+				
+				clipboard.setText(url);
+				
+				
 				PostToIRC.this.notify("Image sent! Copied url to clipboard: "
-						+ res);
+						+ url);
 			} else {
 				PostToIRC.this.notify("Error sending picture: " + err);
 			}
