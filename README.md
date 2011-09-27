@@ -1,4 +1,4 @@
-# Share in IRC app for Android
+# Share on IRC app for Android
 
 Like there is an option to share images on Facebook and Twitter on Android,
 this adds similar option for IRC.
